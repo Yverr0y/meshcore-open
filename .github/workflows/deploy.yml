@@ -6,11 +6,17 @@ on:
       - '*'
   workflow_dispatch:
 
+# Restrict the workflow token; Cloudflare deployment uses a separate credential.
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
